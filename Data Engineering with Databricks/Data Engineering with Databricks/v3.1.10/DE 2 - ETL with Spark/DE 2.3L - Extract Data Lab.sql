@@ -77,8 +77,22 @@
 
 -- COMMAND ----------
 
+SELECT CAST(key AS BINARY), CAST(offset AS BIGINT), CAST(partition AS INT), CAST(timestamp AS BIGINT), CAST(topic AS STRING), CAST(value AS BINARY) FROM json.`${DA.paths.kafka_events}`
+
+-- COMMAND ----------
+
+CREATE OR REPLACE TABLE events_json
+AS SELECT CAST(key AS BINARY), CAST(offset AS BIGINT), CAST(partition AS INT), CAST(timestamp AS BIGINT), CAST(topic AS STRING), CAST(value AS BINARY) FROM json.`${DA.paths.kafka_events}`
+
+
+-- COMMAND ----------
+
 -- TODO
 <FILL_IN> "${DA.paths.kafka_events}" 
+
+-- COMMAND ----------
+
+SELECT * FROM events_json ;
 
 -- COMMAND ----------
 
@@ -98,6 +112,22 @@
 -- MAGIC
 -- MAGIC total = spark.table("events_json").count()
 -- MAGIC assert total == 2252, f"Expected 2252 records, found {total}"
+
+-- COMMAND ----------
+
+-- MAGIC %python
+-- MAGIC import pyspark.sql.functions as F
+-- MAGIC from pyspark.sql.functions import col
+-- MAGIC
+-- MAGIC events_json = spark.sql("SELECT * FROM events_json")\
+-- MAGIC                     .filter(col("key") == "VlVFd01EQXdNREF4TURjek9UZ3dOVFE9")
+-- MAGIC
+-- MAGIC # Assuming you want to count the rows in events_json DataFrame
+-- MAGIC events_json_count = events_json.count()
+-- MAGIC
+-- MAGIC # Create a DataFrame with the count to use display()
+-- MAGIC count_df = spark.createDataFrame([(events_json_count,)], ["count"])
+-- MAGIC display(count_df)
 
 -- COMMAND ----------
 
