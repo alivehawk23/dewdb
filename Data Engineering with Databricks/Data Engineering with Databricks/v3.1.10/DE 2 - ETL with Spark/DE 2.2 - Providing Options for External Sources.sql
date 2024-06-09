@@ -319,6 +319,23 @@ DESCRIBE EXTENDED users_jdbc
 
 -- COMMAND ----------
 
+-- MAGIC %python
+-- MAGIC import pyspark.sql.functions as F
+-- MAGIC
+-- MAGIC users = spark.sql("DESCRIBE EXTENDED users_jdbc")
+-- MAGIC #print(sales)
+-- MAGIC #display(users)
+-- MAGIC
+-- MAGIC emailnotnull = spark.sql("SELECT * FROM users_jdbc WHERE email IS NOT NULL")
+-- MAGIC #display(emailnotnull)
+-- MAGIC
+-- MAGIC
+-- MAGIC #order by email
+-- MAGIC sortbyemail = emailnotnull.sort(F.col("email"))
+-- MAGIC display(sortbyemail)
+
+-- COMMAND ----------
+
 -- DBTITLE 0,--i18n-1cb11f07-755c-4fb2-a122-1eb340033712
 -- MAGIC %md
 -- MAGIC

@@ -60,6 +60,11 @@
 
 -- COMMAND ----------
 
+-- MAGIC %python
+-- MAGIC dbfs:/mnt/dbacademy-datasets/
+
+-- COMMAND ----------
+
 -- DBTITLE 0,--i18n-65941466-ca87-4c29-903e-658e24e48cee
 -- MAGIC %md
 -- MAGIC
@@ -123,6 +128,10 @@ SELECT * FROM json.`${DA.paths.kafka_events}/001.json`
 -- MAGIC ## Query a Directory of Files
 -- MAGIC
 -- MAGIC Assuming all of the files in a directory have the same format and schema, all files can be queried simultaneously by specifying the directory path rather than an individual file.
+
+-- COMMAND ----------
+
+SELECT * FROM json.`${DA.paths.kafka_events}/004.json`
 
 -- COMMAND ----------
 
